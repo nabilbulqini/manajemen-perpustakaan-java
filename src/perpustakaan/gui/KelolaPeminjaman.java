@@ -3,50 +3,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package perpustakaan.gui;
+
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
-import perpustakaan.util.FileManager;
-import perpustakaan.model.Buku;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import perpustakaan.model.Peminjaman;
+import perpustakaan.util.FileManager;
 
 /**
  *
  * @author LENOVO
  */
-public class KelolaBuku extends javax.swing.JFrame {
+public class KelolaPeminjaman extends javax.swing.JFrame {
 
-    /**
-     * Creates new form KelolaBuku
-     * 
-     * 
-     */
-    
     private DefaultTableModel model;
     private FileManager fileManager = new FileManager();
-    private List<Buku> listBuku;
+    private List<Peminjaman> listPeminjaman;
     private FileManager fm;
     
-    public KelolaBuku() {
+    public KelolaPeminjaman() {
         initComponents();
         setLocationRelativeTo(null); // tengah layar
         setPlaceholder();
         fm = new FileManager();
         initTable();
-        listBuku = new ArrayList<>();
+        listPeminjaman = new ArrayList<>();
         loadData();
     }
     
     private void initTable() {
     model = new DefaultTableModel(
-        new Object[]{"Kode", "Judul", "Penulis", "Tahun", "Jenis", "Status"}, 0
+        new Object[]{"ID Anggota", "Nama", "Alamat", "No Telp"}, 0
     );
-    DataTabelBuku.setModel(model);
-}
+    DataTabelPeminjaman.setModel(model);
+  }
+    
     private void setPlaceholder() {
     FieldPencarian.setText("pencarian...");
     FieldPencarian.setForeground(Color.GRAY);
@@ -69,23 +64,24 @@ public class KelolaBuku extends javax.swing.JFrame {
         }
     });
 }
-
-    void loadData() {
+    
+      void loadData() {
     model.setRowCount(0); // bersihin tabel
 
-    this.listBuku = fileManager.bacaSemua();
-    for (Buku b : listBuku) {
+    this.listPeminjaman = fileManager.bacaSemuaPeminjaman();
+    for (Peminjaman p : listPeminjaman) {
         model.addRow(new Object[]{
-            b.getKode(),
-            b.getJudul(),
-            b.getPenulis(),
-            b.getTahun(),
-            b.getJenis(),
-            b.getStatus()
+            p.getIdPinjam(),
+            p.getKodeBuku(),
+            p.getIdAnggota(),
+            p.getTanggalPinjam(),
+            p.getTanggalKembali(),
+            p.getStatus()
         });
     }  
   }
-   private void cariBuku() {
+      
+    private void cariPinjam() {
     String keyword = FieldPencarian.getText().trim().toLowerCase();
 
     // kalau placeholder atau kosong → tampilkan semua
@@ -95,11 +91,11 @@ public class KelolaBuku extends javax.swing.JFrame {
     }
 
     DefaultTableModel model =
-        (DefaultTableModel) DataTabelBuku.getModel();
+        (DefaultTableModel) DataTabelPeminjaman.getModel();
     model.setRowCount(0);
 
     FileManager fm = new FileManager();
-    List<Buku> hasil = fm.cariBuku(keyword);
+    List<Peminjaman> hasil = fm.cariPeminjaman(keyword);
 
     if (hasil.isEmpty()) {
         JOptionPane.showMessageDialog(this,
@@ -107,21 +103,18 @@ public class KelolaBuku extends javax.swing.JFrame {
         return;
     }
 
-    for (Buku b : hasil) {
+    for (Peminjaman p : hasil) {
         model.addRow(new Object[]{
-            b.getKode(),
-            b.getJudul(),
-            b.getPenulis(),
-            b.getTahun(),
-            b.getJenis(),
-            b.getStatus()
+            p.getIdPinjam(),
+            p.getKodeBuku(),
+            p.getIdAnggota(),
+            p.getTanggalPinjam(),
+            p.getTanggalKembali(),
+            p.getStatus()
         });
     }
-}
-
-
-
-
+ }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,28 +128,30 @@ public class KelolaBuku extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ButtonTambah = new javax.swing.JButton();
-        ButtonHapus = new javax.swing.JButton();
         ButtonEdit = new javax.swing.JButton();
+        ButtonHapus = new javax.swing.JButton();
         ButtonKembali = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        DataTabelBuku = new javax.swing.JTable();
         FieldPencarian = new javax.swing.JTextField();
-        ButtonCari = new javax.swing.JButton();
+        ButtonPencarian = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        DataTabelPeminjaman = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(142, 159, 230));
 
         jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
-        jLabel1.setText("Kelola Buku");
+        jLabel1.setText("Peminjaman");
 
         ButtonTambah.setText("Tambah");
-        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+
+        ButtonEdit.setText("Edit");
+        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonTambahActionPerformed(evt);
+                ButtonEditActionPerformed(evt);
             }
         });
 
@@ -164,13 +159,6 @@ public class KelolaBuku extends javax.swing.JFrame {
         ButtonHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonHapusActionPerformed(evt);
-            }
-        });
-
-        ButtonEdit.setText("Edit");
-        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditActionPerformed(evt);
             }
         });
 
@@ -185,135 +173,130 @@ public class KelolaBuku extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 54, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ButtonKembali, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                        .addComponent(ButtonEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(38, 38, 38))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ButtonHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ButtonKembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ButtonEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(31, 31, 31)
                 .addComponent(ButtonTambah)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonHapus)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonEdit)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonKembali)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 500));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 230, 500);
 
         jPanel2.setBackground(new java.awt.Color(194, 203, 239));
 
         jLabel2.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
-        jLabel2.setText("Tabel Data Buku");
+        jLabel2.setText("Tabel Data Peminjaman");
 
-        DataTabelBuku.setModel(new javax.swing.table.DefaultTableModel(
+        FieldPencarian.setFont(new java.awt.Font("Book Antiqua", 2, 10)); // NOI18N
+        FieldPencarian.setText("Pencarian....");
+
+        ButtonPencarian.setText("Cari");
+        ButtonPencarian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonPencarianActionPerformed(evt);
+            }
+        });
+
+        DataTabelPeminjaman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Kode Buku", "Judul", "Penulis", "Tahun", "Jenis", "Status"
+                "Id Pinjam", "Kode Buku", "Id Anggota", "Tanggal Pinjam", "Tanggal kembali ", "Status"
             }
         ));
-        jScrollPane1.setViewportView(DataTabelBuku);
-
-        FieldPencarian.setFont(new java.awt.Font("Arial", 2, 10)); // NOI18N
-        FieldPencarian.setText("Pencarian....");
-        FieldPencarian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FieldPencarianActionPerformed(evt);
-            }
-        });
-
-        ButtonCari.setText("Cari");
-        ButtonCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonCariActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(DataTabelPeminjaman);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(286, 286, 286))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                .addGap(243, 243, 243)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ButtonPencarian)))
+                .addGap(29, 29, 29))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonPencarian))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 770, 500));
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(230, 0, 770, 500);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
         // TODO add your handling code here:
-        new PopUpTambahBuku().setVisible(true);
-        this.dispose();
-        loadData();
-    }//GEN-LAST:event_ButtonTambahActionPerformed
+    }//GEN-LAST:event_ButtonEditActionPerformed
 
     private void ButtonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembaliActionPerformed
         // TODO add your handling code here:
-        new Dashboard().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_ButtonKembaliActionPerformed
 
-    private void FieldPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldPencarianActionPerformed
+    private void ButtonPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPencarianActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FieldPencarianActionPerformed
+        cariPinjam();
+    }//GEN-LAST:event_ButtonPencarianActionPerformed
 
     private void ButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonHapusActionPerformed
         // TODO add your handling code here:
-        int row = DataTabelBuku.getSelectedRow();
+           int row = DataTabelPeminjaman.getSelectedRow();
 
         if (row == -1) {
         JOptionPane.showMessageDialog(this,
-        "Pilih buku yang akan dihapus!");
+        "Pilih peminjaman yang akan dihapus!");
         return;
     }
 
-        String kodeBuku = DataTabelBuku.getValueAt(row, 0).toString();
+        String kodeBuku = DataTabelPeminjaman.getValueAt(row, 0).toString();
 
         int confirm = JOptionPane.showConfirmDialog(
         this,
-        "Yakin ingin menghapus buku ini?",
+        "Yakin ingin menghapus ini?",
         "Konfirmasi",
         JOptionPane.YES_NO_OPTION
     );
@@ -323,31 +306,11 @@ public class KelolaBuku extends javax.swing.JFrame {
         fm.hapusBuku(kodeBuku);
 
         JOptionPane.showMessageDialog(this,
-        "Buku berhasil dihapus");
+        "Berhasil dihapus");
 
         loadData(); // refresh JTable
         }
     }//GEN-LAST:event_ButtonHapusActionPerformed
-
-    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
-       int row = DataTabelBuku.getSelectedRow();
-
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Pilih buku dulu!");
-        return;
-    }
-
-    Buku bukuDipilih = listBuku.get(row); // ✅ AMAN SEKARANG
-
-    PopUpEditBuku pop = new PopUpEditBuku(bukuDipilih);
-    pop.setVisible(true);
-    }//GEN-LAST:event_ButtonEditActionPerformed
-
-    private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
-        // TODO add your handling code here:
-        cariBuku();
-    }//GEN-LAST:event_ButtonCariActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,12 +318,12 @@ public class KelolaBuku extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonCari;
     private javax.swing.JButton ButtonEdit;
     private javax.swing.JButton ButtonHapus;
     private javax.swing.JButton ButtonKembali;
+    private javax.swing.JButton ButtonPencarian;
     private javax.swing.JButton ButtonTambah;
-    private javax.swing.JTable DataTabelBuku;
+    private javax.swing.JTable DataTabelPeminjaman;
     private javax.swing.JTextField FieldPencarian;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

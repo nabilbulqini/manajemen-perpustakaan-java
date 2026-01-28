@@ -15,6 +15,8 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+        setLocationRelativeTo(null); // tengah layar
+        pack(); // <- PENTING 
     }
 
     /**
@@ -26,57 +28,231 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel2 = new javax.swing.JLabel();
+        jDialog1 = new javax.swing.JDialog();
+        Background1 = new javax.swing.JPanel();
+        NamaApp = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        ButtonKelolaBuku = new javax.swing.JButton();
+        ButtonKelolaAnggota = new javax.swing.JButton();
+        ButtonPeminjaman = new javax.swing.JButton();
+        ButtonPengembalian = new javax.swing.JButton();
+        ButtonKeluar = new javax.swing.JButton();
+        ButtonLaporan = new javax.swing.JButton();
+        Background2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/stack-of-books.png"))); // NOI18N
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Background1.setBackground(new java.awt.Color(142, 159, 230));
+
+        NamaApp.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        NamaApp.setText("Manajemen ");
+
+        jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel1.setText("Perpustakaan");
+
+        ButtonKelolaBuku.setText("Kelola Buku");
+        ButtonKelolaBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonKelolaBukuActionPerformed(evt);
+            }
+        });
+
+        ButtonKelolaAnggota.setText("Kelola Anggota");
+        ButtonKelolaAnggota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonKelolaAnggotaActionPerformed(evt);
+            }
+        });
+
+        ButtonPeminjaman.setText("Peminjaman");
+        ButtonPeminjaman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonPeminjamanActionPerformed(evt);
+            }
+        });
+
+        ButtonPengembalian.setText("Pengembalian");
+
+        ButtonKeluar.setText("Keluar");
+        ButtonKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonKeluarActionPerformed(evt);
+            }
+        });
+
+        ButtonLaporan.setText("Laporan");
+
+        javax.swing.GroupLayout Background1Layout = new javax.swing.GroupLayout(Background1);
+        Background1.setLayout(Background1Layout);
+        Background1Layout.setHorizontalGroup(
+            Background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background1Layout.createSequentialGroup()
+                .addGap(0, 49, Short.MAX_VALUE)
+                .addGroup(Background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)
+                        .addComponent(NamaApp))
+                    .addGroup(Background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(ButtonKeluar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonLaporan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonPengembalian, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonPeminjaman, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonKelolaAnggota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                        .addComponent(ButtonKelolaBuku, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(42, 42, 42))
+        );
+        Background1Layout.setVerticalGroup(
+            Background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Background1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(NamaApp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonKelolaBuku)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonKelolaAnggota)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonPeminjaman)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonPengembalian)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonLaporan)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonKeluar)
+                .addContainerGap(153, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(Background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 500));
+
+        Background2.setBackground(new java.awt.Color(194, 203, 239));
+
+        jLabel3.setFont(new java.awt.Font("Book Antiqua", 0, 36)); // NOI18N
+        jLabel3.setText("S e l a m a t  D a t a n g");
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel4.setFont(new java.awt.Font("Book Antiqua", 0, 18)); // NOI18N
+        jLabel4.setText("Aplikasi ini digunakan untuk membantu petugas");
+
+        jLabel6.setFont(new java.awt.Font("Book Antiqua", 0, 18)); // NOI18N
+        jLabel6.setText("perpustakaan dalam mengelola data buku, anggota,");
+
+        jLabel5.setFont(new java.awt.Font("Book Antiqua", 0, 18)); // NOI18N
+        jLabel5.setText("peminjaman, dan pengembalian secara terstruktur.");
+
+        javax.swing.GroupLayout Background2Layout = new javax.swing.GroupLayout(Background2);
+        Background2.setLayout(Background2Layout);
+        Background2Layout.setHorizontalGroup(
+            Background2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Background2Layout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(189, 189, 189))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(Background2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background2Layout.createSequentialGroup()
+                        .addGroup(Background2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Background2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel5))
+                            .addComponent(jLabel6))
+                        .addGap(174, 174, 174))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(193, 193, 193))))
+        );
+        Background2Layout.setVerticalGroup(
+            Background2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Background2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(321, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(Background2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 760, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ButtonPeminjamanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPeminjamanActionPerformed
+        // TODO add your handling code here:
+        new KelolaPeminjaman().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonPeminjamanActionPerformed
+
+    private void ButtonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKeluarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_ButtonKeluarActionPerformed
+
+    private void ButtonKelolaBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKelolaBukuActionPerformed
+        // TODO add your handling code here:
+        new KelolaBuku().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonKelolaBukuActionPerformed
+
+    private void ButtonKelolaAnggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKelolaAnggotaActionPerformed
+        // TODO add your handling code here:
+        new KelolaAnggota().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonKelolaAnggotaActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
-    }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Background1;
+    private javax.swing.JPanel Background2;
+    private javax.swing.JButton ButtonKelolaAnggota;
+    private javax.swing.JButton ButtonKelolaBuku;
+    private javax.swing.JButton ButtonKeluar;
+    private javax.swing.JButton ButtonLaporan;
+    private javax.swing.JButton ButtonPeminjaman;
+    private javax.swing.JButton ButtonPengembalian;
+    private javax.swing.JLabel NamaApp;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

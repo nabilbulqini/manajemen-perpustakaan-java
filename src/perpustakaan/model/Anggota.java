@@ -8,6 +8,63 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
+
 public class Anggota {
-    
+
+    private String idAnggota;
+    private String nama;
+    private String alamat;
+    private String noTelp;
+
+    public Anggota(String idAnggota, String nama, String alamat, String noTelp) {
+        this.idAnggota = idAnggota;
+        this.nama = nama;
+        this.alamat = alamat;
+        this.noTelp = noTelp;
+    }
+
+    public String getIdAnggota() {
+        return idAnggota;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
+    }
+
+    // untuk simpan ke file
+    public String toDataString() {
+        return idAnggota + ";" + nama + ";" + alamat + ";" + noTelp;
+    }
+
+    // baca dari file
+    public static Anggota fromDataString(String line) {
+        String[] data = line.split(";");
+        return new Anggota(
+            data[0],
+            data[1],
+            data[2],
+            data[3]
+        );
+    }
 }
+
