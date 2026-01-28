@@ -13,6 +13,9 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
+    
+    // laporan dosen test commit
+
     public Dashboard() {
         initComponents();
         setLocationRelativeTo(null); // tengah layar
