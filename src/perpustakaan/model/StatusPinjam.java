@@ -8,8 +8,7 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
-public enum JenisBuku {
-    NOVEL,
-    PELAJARAN,
-    MAJALAH
+public enum StatusPinjam {
+    Dipinjam,
+    Dikembalikan
 }

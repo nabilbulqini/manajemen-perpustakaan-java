@@ -4,18 +4,114 @@
  */
 package perpustakaan.gui;
 
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import perpustakaan.model.Anggota;
+import perpustakaan.util.FileManager;
+
 /**
  *
  * @author LENOVO
  */
 public class KelolaAnggota extends javax.swing.JFrame {
 
+    private DefaultTableModel model;
+    
     /**
      * Creates new form KelolaAnggota
      */
     public KelolaAnggota() {
         initComponents();
+        initTable();
+        setPlaceholder();
+        setLocationRelativeTo(null); 
+        loadData();
     }
+    
+    private void initTable() {
+    model = new DefaultTableModel(
+        new Object[]{"ID Anggota", "Nama", "Alamat", "No Telp"}, 0
+    );
+    TabelDataAnggota.setModel(model);
+  }
+    
+    private void setPlaceholder() {
+    FieldPencarian.setText("pencarian...");
+    FieldPencarian.setForeground(Color.GRAY);
+
+    FieldPencarian.addFocusListener(new FocusAdapter() {
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (FieldPencarian.getText().equals("pencarian...")) {
+                FieldPencarian.setText("");
+                FieldPencarian.setForeground(Color.BLACK);
+            }
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (FieldPencarian.getText().isEmpty()) {
+                FieldPencarian.setText("pencarian...");
+                FieldPencarian.setForeground(Color.GRAY);
+            }
+        }
+    });
+}
+    
+    
+    FileManager fileManager = new FileManager();
+    List<Anggota> listAnggota;
+
+    final void loadData() {
+    model.setRowCount(0);
+    listAnggota = fileManager.bacaSemuaAnggota();
+
+    for (Anggota a : listAnggota) {
+        model.addRow(new Object[]{
+            a.getIdAnggota(),
+            a.getNama(),
+            a.getAlamat(),
+            a.getNoTelp()
+        });
+    }
+}
+
+    private void cariAnggota() {
+    String keyword = FieldPencarian.getText().trim().toLowerCase();
+
+    // kalau placeholder atau kosong → tampilkan semua
+    if (keyword.equals("pencarian...") || keyword.isEmpty()) {
+        loadData();
+        return;
+    }
+
+    DefaultTableModel model =
+        (DefaultTableModel) TabelDataAnggota.getModel();
+    model.setRowCount(0);
+
+    FileManager fm = new FileManager();
+    List<Anggota> hasil = fm.cariAnggota(keyword);
+
+    if (hasil.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+            "Data tidak ditemukan");
+        return;
+    }
+
+    for (Anggota a : hasil) {
+        model.addRow(new Object[]{
+            a.getIdAnggota(),
+            a.getNama(),
+            a.getAlamat(),
+            a.getNoTelp()
+        });
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,57 +122,246 @@ public class KelolaAnggota extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        ButtonTambah = new javax.swing.JButton();
+        ButtonHapus = new javax.swing.JButton();
+        ButtonEdit = new javax.swing.JButton();
+        ButtonKembali = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TabelDataAnggota = new javax.swing.JTable();
+        FieldPencarian = new javax.swing.JTextField();
+        ButtonCari = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(142, 159, 230));
+
+        jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel1.setText("Kelola");
+
+        jLabel2.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel2.setText("Anggota");
+
+        ButtonTambah.setText("Tambah");
+        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonTambahActionPerformed(evt);
+            }
+        });
+
+        ButtonHapus.setText("Hapus");
+        ButtonHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonHapusActionPerformed(evt);
+            }
+        });
+
+        ButtonEdit.setText("Edit");
+        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEditActionPerformed(evt);
+            }
+        });
+
+        ButtonKembali.setText("Kembali");
+        ButtonKembali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonKembaliActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(71, 71, 71))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(29, 29, 29)
+                .addComponent(ButtonTambah)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonHapus)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonEdit)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonKembali)
+                .addContainerGap(232, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 500));
+
+        jPanel2.setBackground(new java.awt.Color(194, 203, 239));
+
+        jLabel3.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabel3.setText("Tabel Data Anggota ");
+
+        TabelDataAnggota.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Anggota", "Nama", "Alamat", "No Telp"
+            }
+        ));
+        jScrollPane1.setViewportView(TabelDataAnggota);
+
+        FieldPencarian.setFont(new java.awt.Font("Arial", 2, 10)); // NOI18N
+        FieldPencarian.setText("Pencarian......");
+        FieldPencarian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldPencarianActionPerformed(evt);
+            }
+        });
+
+        ButtonCari.setText("Cari");
+        ButtonCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCariActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(260, 260, 260))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 760, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
+        // TODO add your han // TODO dling code here:
+        int row = TabelDataAnggota.getSelectedRow();
+        if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Pilih data dulu!");
+        return;
+    }
+
+    Anggota a = listAnggota.get(row);
+        new PopUpEditAnggota().setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_ButtonEditActionPerformed
+
+    private void ButtonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembaliActionPerformed
+        // TODO add your handling code here:
+        new Dashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonKembaliActionPerformed
+
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        // TODO add your handling code here:
+        new PopUpTambahAnggota().setVisible(true);
+        this.dispose();
+        loadData();
+    }//GEN-LAST:event_ButtonTambahActionPerformed
+
+    private void FieldPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldPencarianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldPencarianActionPerformed
+
+    private void ButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonHapusActionPerformed
+        // TODO add your handling code here:
+         int row = TabelDataAnggota.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Pilih data dulu!");
+        return;
+    }
+
+    String id = model.getValueAt(row, 0).toString();
+    fileManager.hapusAnggota(id);
+    loadData();
+    }//GEN-LAST:event_ButtonHapusActionPerformed
+
+    private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
+        // TODO add your handling code here:
+        String keyword = FieldPencarian.getText();
+    model.setRowCount(0);
+
+    for (Anggota a : fileManager.cariAnggota(keyword)) {
+        model.addRow(new Object[]{
+            a.getIdAnggota(),
+            a.getNama(),
+            a.getAlamat(),
+            a.getNoTelp()
+        });
+    }
+    }//GEN-LAST:event_ButtonCariActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KelolaAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KelolaAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KelolaAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KelolaAnggota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new KelolaAnggota().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonCari;
+    private javax.swing.JButton ButtonEdit;
+    private javax.swing.JButton ButtonHapus;
+    private javax.swing.JButton ButtonKembali;
+    private javax.swing.JButton ButtonTambah;
+    private javax.swing.JTextField FieldPencarian;
+    private javax.swing.JTable TabelDataAnggota;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
