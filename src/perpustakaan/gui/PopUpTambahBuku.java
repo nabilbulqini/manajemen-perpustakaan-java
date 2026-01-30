@@ -29,10 +29,9 @@ public class PopUpTambahBuku extends javax.swing.JFrame {
     ComboBoxJenis.getSelectedItem().toString()
 );
 
-    StatusBuku status = StatusBuku.valueOf(
-    ComboBoxStatusBuku.getSelectedItem().toString()
-);
 
+    ComboBoxStatusBuku.setEnabled(false); // 🔒 DIKUNCI
+    ComboBoxStatusBuku.setSelectedItem(StatusBuku.TERSEDIA); // default
 
 }
 
@@ -239,9 +238,8 @@ public class PopUpTambahBuku extends javax.swing.JFrame {
         ComboBoxJenis.getSelectedItem().toString()
     );
 
-    StatusBuku status = StatusBuku.valueOf(
-        ComboBoxStatusBuku.getSelectedItem().toString()
-    );
+    StatusBuku status = StatusBuku.TERSEDIA;
+
 
     Buku b = new Buku(
         FieldKodeBuku.getText(),

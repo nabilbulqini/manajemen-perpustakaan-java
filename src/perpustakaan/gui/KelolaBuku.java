@@ -13,6 +13,7 @@ import perpustakaan.model.Buku;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
+import perpustakaan.model.StatusBuku;
 
 /**
  *
@@ -43,7 +44,7 @@ public class KelolaBuku extends javax.swing.JFrame {
     
     private void initTable() {
     model = new DefaultTableModel(
-        new Object[]{"Kode", "Judul", "Penulis", "Tahun", "Jenis", "Status"}, 0
+        new Object[]{"Kode Buku", "Judul", "Penulis/Edisi", "Tahun Terbit", "Jenis", "Status"}, 0
     );
     DataTabelBuku.setModel(model);
 }
@@ -69,6 +70,8 @@ public class KelolaBuku extends javax.swing.JFrame {
         }
     });
 }
+    
+    
 
     void loadData() {
     model.setRowCount(0); // bersihin tabel
@@ -118,6 +121,7 @@ public class KelolaBuku extends javax.swing.JFrame {
         });
     }
 }
+   
 
 
 
@@ -186,33 +190,32 @@ public class KelolaBuku extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 54, Short.MAX_VALUE)
+                .addGap(0, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ButtonKembali, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                        .addComponent(ButtonEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(38, 38, 38))
+                    .addComponent(ButtonKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(ButtonTambah)
-                .addGap(24, 24, 24)
+                .addGap(28, 28, 28)
                 .addComponent(ButtonHapus)
-                .addGap(24, 24, 24)
-                .addComponent(ButtonEdit)
                 .addGap(26, 26, 26)
+                .addComponent(ButtonEdit)
+                .addGap(28, 28, 28)
                 .addComponent(ButtonKembali)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 230, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 250, 500));
 
         jPanel2.setBackground(new java.awt.Color(194, 203, 239));
 
@@ -224,10 +227,13 @@ public class KelolaBuku extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Kode Buku", "Judul", "Penulis", "Tahun", "Jenis", "Status"
+                "Kode Buku", "Judul", "Penulis/Edisi", "Tahun Terbit", "Jenis", "Status"
             }
         ));
         jScrollPane1.setViewportView(DataTabelBuku);
+        if (DataTabelBuku.getColumnModel().getColumnCount() > 0) {
+            DataTabelBuku.getColumnModel().getColumn(0).setPreferredWidth(25);
+        }
 
         FieldPencarian.setFont(new java.awt.Font("Arial", 2, 10)); // NOI18N
         FieldPencarian.setText("Pencarian....");
@@ -273,8 +279,8 @@ public class KelolaBuku extends javax.swing.JFrame {
                     .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(265, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 770, 500));

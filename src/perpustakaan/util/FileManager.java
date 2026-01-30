@@ -138,6 +138,32 @@ package perpustakaan.util;
     }
 }
     
+    // Method Ubah status buku pada buku.txt  
+    public void ubahStatusBuku(String kodeBuku, StatusBuku statusBaru) {
+        List<Buku> list = bacaSemua();
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("buku.txt"))) {
+            for (Buku b : list) {
+
+                if (b.getKode().equals(kodeBuku)) {
+                    b.setStatus(statusBaru);
+                }
+
+                bw.write(
+                    b.getKode() + ";" +
+                    b.getJudul() + ";" +
+                    b.getPenulis() + ";" +
+                    b.getTahun() + ";" +
+                    b.getJenis() + ";" +
+                    b.getStatus()
+                );
+                bw.newLine();
+            }
+        } catch (IOException e) {
+        }
+    }
+
+
     // ========== ANGGOTA =========
     private final String FILE_ANGGOTA = "anggota.txt";
     

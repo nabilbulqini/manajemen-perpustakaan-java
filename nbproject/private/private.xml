@@ -12,6 +12,11 @@
             <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/gui/Dashboard.java</file>
             <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/util/FileManager.java</file>
             <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/model/Buku.java</file>
+            <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/gui/PopUpTambahPinjam.java</file>
+            <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/model/StatusPinjam.java</file>
+            <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/main/MainApp.java</file>
+            <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/gui/KelolaPengembalian.java</file>
+            <file>file:/C:/Users/LENOVO/Dokumen/NetBeansProjects/AplikasiManajemenPerpustakaan/src/perpustakaan/util/OperasiData.java</file>
         </group>
     </open-files>
 </project-private>

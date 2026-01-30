@@ -24,6 +24,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
     private FileManager fileManager = new FileManager();
     private List<Peminjaman> listPeminjaman;
     private FileManager fm;
+    public static KelolaPeminjaman instance;
     
     public KelolaPeminjaman() {
         initComponents();
@@ -32,12 +33,15 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
         fm = new FileManager();
         initTable();
         listPeminjaman = new ArrayList<>();
+        instance = this; 
         loadData();
     }
     
+    
+    
     private void initTable() {
     model = new DefaultTableModel(
-        new Object[]{"ID Anggota", "Nama", "Alamat", "No Telp"}, 0
+        new Object[]{"Id Pinjam", "Kode Buku", "IdAnggota", "Tanggal Pinjam", "Tanggal Kembali", "Status Pinjam"}, 0
     );
     DataTabelPeminjaman.setModel(model);
   }
@@ -139,7 +143,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
         DataTabelPeminjaman = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(142, 159, 230));
 
@@ -147,6 +151,11 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
         jLabel1.setText("Peminjaman");
 
         ButtonTambah.setText("Tambah");
+        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonTambahActionPerformed(evt);
+            }
+        });
 
         ButtonEdit.setText("Edit");
         ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -203,8 +212,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
                 .addContainerGap(252, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 230, 500);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(194, 203, 239));
 
@@ -245,7 +253,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(ButtonPencarian)))
                 .addGap(29, 29, 29))
         );
@@ -255,16 +263,15 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonPencarian))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonPencarian)
+                    .addComponent(FieldPencarian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(122, 122, 122))
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(230, 0, 770, 500);
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, -1, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -275,6 +282,9 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
 
     private void ButtonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembaliActionPerformed
         // TODO add your handling code here:
+        new Dashboard().setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_ButtonKembaliActionPerformed
 
     private void ButtonPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPencarianActionPerformed
@@ -284,7 +294,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
 
     private void ButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonHapusActionPerformed
         // TODO add your handling code here:
-           int row = DataTabelPeminjaman.getSelectedRow();
+        int row = DataTabelPeminjaman.getSelectedRow();
 
         if (row == -1) {
         JOptionPane.showMessageDialog(this,
@@ -292,7 +302,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
         return;
     }
 
-        String kodeBuku = DataTabelPeminjaman.getValueAt(row, 0).toString();
+        String idPinjam = DataTabelPeminjaman.getValueAt(row, 0).toString();
 
         int confirm = JOptionPane.showConfirmDialog(
         this,
@@ -303,7 +313,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
         FileManager fm = new FileManager();
-        fm.hapusBuku(kodeBuku);
+        fm.hapusPeminjaman(idPinjam);
 
         JOptionPane.showMessageDialog(this,
         "Berhasil dihapus");
@@ -311,6 +321,12 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
         loadData(); // refresh JTable
         }
     }//GEN-LAST:event_ButtonHapusActionPerformed
+
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        // TODO add your handling code here:
+        new PopUpTambahPinjam().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonTambahActionPerformed
 
     /**
      * @param args the command line arguments

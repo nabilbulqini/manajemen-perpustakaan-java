@@ -1,2 +1,11 @@
-67;gatau;bebas;2022;NOVEL;TERSEDIA
-78;arjuna;malaikat;2023;NOVEL;TERSEDIA
+N0001;Laskar Pelangi;Andrea Hirata;2005;NOVEL;TERSEDIA
+N0002;Laut Bercerita;Leila S. Chudori;2017;NOVEL;TERSEDIA
+N0003;Cantik Itu Luka;Eka Kurniawan;2002;NOVEL;TERSEDIA
+N0004;The Great Gatsby;F. Scott Fitzgerald;1925;NOVEL;TERSEDIA
+N0005;Norwegian Wood;Haruki Murakami;1987;NOVEL;TERSEDIA
+BP0001;Matematika Dasar;ST.Negoro & B.Harahap;2003;PELAJARAN;TERSEDIA
+BP0002;Fisika Dasar Jilid I;Halliday & Resnick;2010;PELAJARAN;TERSEDIA
+BP0003;Biologi Sel;Bruce Alberts;2014;PELAJARAN;TERSEDIA
+BP0004;Pengantar Ekonomi Makro;N.Gregory Mankiw;2018;PELAJARAN;TERSEDIA
+BP0005;Sejarah Indonesia;M.C Ricklefs;2008;PELAJARAN;TERSEDIA
+M0001;Tempo;Investigasi Politik;1971;MAJALAH;TERSEDIA

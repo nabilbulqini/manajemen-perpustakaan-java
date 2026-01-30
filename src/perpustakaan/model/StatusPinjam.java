@@ -9,6 +9,6 @@ package perpustakaan.model;
  * @author LENOVO
  */
 public enum StatusPinjam {
-    Dipinjam,
-    Dikembalikan
+    DIPINJAM,
+    DIKEMBALIKAN 
 }
