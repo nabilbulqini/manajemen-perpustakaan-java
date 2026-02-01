@@ -7,7 +7,7 @@ package perpustakaan.gui;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import perpustakaan.gui.KelolaBuku;
-import perpustakaan.model.Buku;
+import perpustakaan.model.BukuPelajaran;
 import perpustakaan.model.JenisBuku;
 import perpustakaan.model.StatusBuku;
 import perpustakaan.util.FileManager;
@@ -65,9 +65,10 @@ public class PopUpTambahBuku extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(142, 159, 230));
+        jPanel1.setBackground(new java.awt.Color(43, 43, 143));
 
         jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Tambah Buku");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -89,7 +90,7 @@ public class PopUpTambahBuku extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
-        jPanel2.setBackground(new java.awt.Color(194, 203, 239));
+        jPanel2.setBackground(new java.awt.Color(193, 230, 248));
 
         jLabel2.setFont(new java.awt.Font("Book Antiqua", 0, 18)); // NOI18N
         jLabel2.setText("Kode Buku :");
@@ -241,7 +242,7 @@ public class PopUpTambahBuku extends javax.swing.JFrame {
     StatusBuku status = StatusBuku.TERSEDIA;
 
 
-    Buku b = new Buku(
+    BukuPelajaran b = new BukuPelajaran (
         FieldKodeBuku.getText(),
         FieldJudul.getText(),
         FieldPenulis.getText(),

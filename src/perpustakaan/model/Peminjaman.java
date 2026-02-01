@@ -4,6 +4,8 @@
  */
 package perpustakaan.model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author LENOVO
@@ -11,48 +13,55 @@ package perpustakaan.model;
 public class Peminjaman {
 
     private String idPinjam;
-    private String kodeBuku;
     private String idAnggota;
+    private String kodeBuku;
     private String tanggalPinjam;
-    private String tanggalKembali;
     private StatusPinjam status;
 
-    public Peminjaman(String idPeminjaman, String kodeBuku,String idAnggota, 
-                      String tanggalPinjam, String tanggalKembali,
-                      StatusPinjam status) {
-        this.idPinjam = idPeminjaman;
-        this.kodeBuku = kodeBuku;
+    public Peminjaman(String idPinjam, String idAnggota, String kodeBuku,
+                      String tanggalPinjam, StatusPinjam status) {
+        this.idPinjam = idPinjam;
         this.idAnggota = idAnggota;
+        this.kodeBuku = kodeBuku;
         this.tanggalPinjam = tanggalPinjam;
-        this.tanggalKembali = tanggalKembali;
         this.status = status;
     }
 
-    // GETTER SETTER
-    public String getIdPinjam() { 
-        return idPinjam;
-    }
-    
-    public String getKodeBuku() { 
-        return kodeBuku; 
-    }
-    
-    public String getIdAnggota() { 
-        return idAnggota; 
-    }
-   
-    public String getTanggalPinjam() { 
-        return tanggalPinjam; 
-    }
-    public String getTanggalKembali() { 
-        return tanggalKembali; 
-    }
-    
-    public StatusPinjam getStatus() { 
-        return status; 
-    }
+    // getter
+    public String getIdPinjam() { return idPinjam; }
+    public String getIdAnggota() { return idAnggota; }
+    public String getKodeBuku() { return kodeBuku; }
+    public String getTanggalPinjam() { return tanggalPinjam; }
+    public StatusPinjam getStatus() { return status; }
 
+    // setter penting
     public void setStatus(StatusPinjam status) {
         this.status = status;
     }
+
+    // file handling
+    public String toDataString() {
+        return idPinjam + ";" + idAnggota + ";" + kodeBuku + ";" +
+               tanggalPinjam + ";" + status;
+    }
+
+   public static Peminjaman fromDataString(String line) {
+    try {
+        String[] d = line.split(";");
+
+        return new Peminjaman(
+            d[0], // id pinjam
+            d[1], // id anggota
+            d[2], // kode buku
+            d[3], // tanggal pinjam
+            StatusPinjam.valueOf(d[4])
+        );
+
+    } catch (Exception e) {
+        System.out.println("GAGAL BACA: " + line);
+        return null;
+    }
+}
+
+
 }

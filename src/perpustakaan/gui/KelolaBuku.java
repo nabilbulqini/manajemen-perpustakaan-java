@@ -9,10 +9,10 @@ import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import perpustakaan.util.FileManager;
-import perpustakaan.model.Buku;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
+import perpustakaan.model.BukuPelajaran;
 import perpustakaan.model.StatusBuku;
 
 /**
@@ -29,7 +29,7 @@ public class KelolaBuku extends javax.swing.JFrame {
     
     private DefaultTableModel model;
     private FileManager fileManager = new FileManager();
-    private List<Buku> listBuku;
+    private List<BukuPelajaran> listBuku;
     private FileManager fm;
     
     public KelolaBuku() {
@@ -44,7 +44,7 @@ public class KelolaBuku extends javax.swing.JFrame {
     
     private void initTable() {
     model = new DefaultTableModel(
-        new Object[]{"Kode Buku", "Judul", "Penulis/Edisi", "Tahun Terbit", "Jenis", "Status"}, 0
+        new Object[]{"Kode Buku", "Judul", "Penulis/Penyusun", "Tahun Terbit", "Jenis", "Status"}, 0
     );
     DataTabelBuku.setModel(model);
 }
@@ -77,7 +77,7 @@ public class KelolaBuku extends javax.swing.JFrame {
     model.setRowCount(0); // bersihin tabel
 
     this.listBuku = fileManager.bacaSemua();
-    for (Buku b : listBuku) {
+    for (BukuPelajaran b : listBuku) {
         model.addRow(new Object[]{
             b.getKode(),
             b.getJudul(),
@@ -86,7 +86,13 @@ public class KelolaBuku extends javax.swing.JFrame {
             b.getJenis(),
             b.getStatus()
         });
-    }  
+    }
+    
+    System.out.println("LOAD DATA DIPANGGIL");
+
+   List<BukuPelajaran> list = new FileManager().bacaSemua();
+   System.out.println("JUMLAH BUKU = " + list.size());
+
   }
    private void cariBuku() {
     String keyword = FieldPencarian.getText().trim().toLowerCase();
@@ -102,7 +108,7 @@ public class KelolaBuku extends javax.swing.JFrame {
     model.setRowCount(0);
 
     FileManager fm = new FileManager();
-    List<Buku> hasil = fm.cariBuku(keyword);
+    List<BukuPelajaran> hasil = fm.cariBuku(keyword);
 
     if (hasil.isEmpty()) {
         JOptionPane.showMessageDialog(this,
@@ -110,7 +116,7 @@ public class KelolaBuku extends javax.swing.JFrame {
         return;
     }
 
-    for (Buku b : hasil) {
+    for (BukuPelajaran b : hasil) {
         model.addRow(new Object[]{
             b.getKode(),
             b.getJudul(),
@@ -140,22 +146,27 @@ public class KelolaBuku extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         ButtonTambah = new javax.swing.JButton();
         ButtonHapus = new javax.swing.JButton();
-        ButtonEdit = new javax.swing.JButton();
         ButtonKembali = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DataTabelBuku = new javax.swing.JTable();
         FieldPencarian = new javax.swing.JTextField();
         ButtonCari = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(142, 159, 230));
+        jPanel1.setBackground(new java.awt.Color(43, 43, 143));
 
-        jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
-        jLabel1.setText("Kelola Buku");
+        jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Kelola ");
 
         ButtonTambah.setText("Tambah");
         ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -171,13 +182,6 @@ public class KelolaBuku extends javax.swing.JFrame {
             }
         });
 
-        ButtonEdit.setText("Edit");
-        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditActionPerformed(evt);
-            }
-        });
-
         ButtonKembali.setText("Kembali");
         ButtonKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,108 +189,147 @@ public class KelolaBuku extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 65, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jLabel3.setFont(new java.awt.Font("Book Antiqua", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Buku");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Buku.png"))); // NOI18N
+        jLabel4.setText("\\");
+
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 56, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ButtonKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(16, 16, 16)
+                                    .addComponent(jLabel3)))
+                            .addGap(47, 47, 47))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(35, 35, 35))))
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(27, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel1)
-                    .addComponent(ButtonKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonTambah)
-                .addGap(28, 28, 28)
-                .addComponent(ButtonHapus)
-                .addGap(26, 26, 26)
-                .addComponent(ButtonEdit)
-                .addGap(28, 28, 28)
-                .addComponent(ButtonKembali)
-                .addContainerGap(251, Short.MAX_VALUE))
-        );
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel3)
+                    .addGap(33, 33, 33)
+                    .addComponent(ButtonTambah)
+                    .addGap(31, 31, 31)
+                    .addComponent(ButtonHapus)
+                    .addGap(32, 32, 32)
+                    .addComponent(ButtonKembali)
+                    .addGap(50, 50, 50))
+            );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 250, 500));
+            getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 250, 500));
 
-        jPanel2.setBackground(new java.awt.Color(194, 203, 239));
+            jPanel2.setBackground(new java.awt.Color(193, 230, 248));
 
-        jLabel2.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
-        jLabel2.setText("Tabel Data Buku");
+            jLabel2.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+            jLabel2.setText("Tabel Data Buku");
 
-        DataTabelBuku.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            DataTabelBuku.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
-            },
-            new String [] {
-                "Kode Buku", "Judul", "Penulis/Edisi", "Tahun Terbit", "Jenis", "Status"
+                },
+                new String [] {
+                    "Kode Buku", "Judul", "Penulis/Penyusun", "Tahun Terbit", "Jenis", "Status"
+                }
+            ));
+            jScrollPane1.setViewportView(DataTabelBuku);
+            if (DataTabelBuku.getColumnModel().getColumnCount() > 0) {
+                DataTabelBuku.getColumnModel().getColumn(0).setPreferredWidth(25);
             }
-        ));
-        jScrollPane1.setViewportView(DataTabelBuku);
-        if (DataTabelBuku.getColumnModel().getColumnCount() > 0) {
-            DataTabelBuku.getColumnModel().getColumn(0).setPreferredWidth(25);
-        }
 
-        FieldPencarian.setFont(new java.awt.Font("Arial", 2, 10)); // NOI18N
-        FieldPencarian.setText("Pencarian....");
-        FieldPencarian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FieldPencarianActionPerformed(evt);
-            }
-        });
+            FieldPencarian.setFont(new java.awt.Font("Arial", 2, 10)); // NOI18N
+            FieldPencarian.setText("Pencarian....");
+            FieldPencarian.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    FieldPencarianActionPerformed(evt);
+                }
+            });
 
-        ButtonCari.setText("Cari");
-        ButtonCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonCariActionPerformed(evt);
-            }
-        });
+            ButtonCari.setText("Cari");
+            ButtonCari.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    ButtonCariActionPerformed(evt);
+                }
+            });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(286, 286, 286))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(265, Short.MAX_VALUE))
-        );
+            jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/long-row-colorful-books-removebg-preview.png"))); // NOI18N
+            jLabel5.setText("\\");
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 770, 500));
+                jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/long-row-colorful-books-removebg-preview.png"))); // NOI18N
+                jLabel6.setText("\\");
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                    jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/KelolaBuku-removebg-preview.png"))); // NOI18N
+
+                    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+                    jPanel2.setLayout(jPanel2Layout);
+                    jPanel2Layout.setHorizontalGroup(
+                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap(21, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(286, 286, 286))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(35, 35, 35))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7)
+                            .addGap(47, 47, 47)
+                            .addComponent(jLabel6)
+                            .addContainerGap())
+                    );
+                    jPanel2Layout.setVerticalGroup(
+                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(ButtonCari, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    );
+
+                    getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 770, 500));
+
+                    pack();
+                }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
         // TODO add your handling code here:
@@ -335,21 +378,6 @@ public class KelolaBuku extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonHapusActionPerformed
 
-    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
-       int row = DataTabelBuku.getSelectedRow();
-
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Pilih buku dulu!");
-        return;
-    }
-
-    Buku bukuDipilih = listBuku.get(row); // ✅ AMAN SEKARANG
-
-    PopUpEditBuku pop = new PopUpEditBuku(bukuDipilih);
-    pop.setVisible(true);
-    }//GEN-LAST:event_ButtonEditActionPerformed
-
     private void ButtonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCariActionPerformed
         // TODO add your handling code here:
         cariBuku();
@@ -362,7 +390,6 @@ public class KelolaBuku extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonCari;
-    private javax.swing.JButton ButtonEdit;
     private javax.swing.JButton ButtonHapus;
     private javax.swing.JButton ButtonKembali;
     private javax.swing.JButton ButtonTambah;
@@ -370,6 +397,11 @@ public class KelolaBuku extends javax.swing.JFrame {
     private javax.swing.JTextField FieldPencarian;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

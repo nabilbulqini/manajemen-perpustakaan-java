@@ -41,7 +41,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
     
     private void initTable() {
     model = new DefaultTableModel(
-        new Object[]{"Id Pinjam", "Kode Buku", "IdAnggota", "Tanggal Pinjam", "Tanggal Kembali", "Status Pinjam"}, 0
+        new Object[]{"IdPinjam", "KodeBuku", "IdAnggota", "TanggalPinjam", "Status"}, 0
     );
     DataTabelPeminjaman.setModel(model);
   }
@@ -69,21 +69,21 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
     });
 }
     
-      void loadData() {
-    model.setRowCount(0); // bersihin tabel
+   void loadData() {
+    model.setRowCount(0);
 
-    this.listPeminjaman = fileManager.bacaSemuaPeminjaman();
+    this.listPeminjaman = fm.bacaSemuaPeminjaman(); // ← PAKAI fm
     for (Peminjaman p : listPeminjaman) {
         model.addRow(new Object[]{
             p.getIdPinjam(),
-            p.getKodeBuku(),
             p.getIdAnggota(),
+            p.getKodeBuku(),
             p.getTanggalPinjam(),
-            p.getTanggalKembali(),
             p.getStatus()
         });
-    }  
-  }
+    }
+}
+
       
     private void cariPinjam() {
     String keyword = FieldPencarian.getText().trim().toLowerCase();
@@ -113,11 +113,12 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
             p.getKodeBuku(),
             p.getIdAnggota(),
             p.getTanggalPinjam(),
-            p.getTanggalKembali(),
             p.getStatus()
         });
     }
  }
+    
+
     
 
     /**
@@ -131,36 +132,35 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        ButtonTambah = new javax.swing.JButton();
-        ButtonEdit = new javax.swing.JButton();
+        ButtonTambahPinjam = new javax.swing.JButton();
         ButtonHapus = new javax.swing.JButton();
+        ButtonKembalikan = new javax.swing.JButton();
         ButtonKembali = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         FieldPencarian = new javax.swing.JTextField();
         ButtonPencarian = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         DataTabelPeminjaman = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(142, 159, 230));
+        jPanel1.setBackground(new java.awt.Color(43, 43, 143));
 
-        jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Book Antiqua", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Peminjaman");
 
-        ButtonTambah.setText("Tambah");
-        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+        ButtonTambahPinjam.setText("Tambah Pinjam");
+        ButtonTambahPinjam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonTambahActionPerformed(evt);
-            }
-        });
-
-        ButtonEdit.setText("Edit");
-        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonEditActionPerformed(evt);
+                ButtonTambahPinjamActionPerformed(evt);
             }
         });
 
@@ -171,12 +171,25 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
             }
         });
 
+        ButtonKembalikan.setText("Kembalikan");
+        ButtonKembalikan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonKembalikanActionPerformed(evt);
+            }
+        });
+
         ButtonKembali.setText("Kembali");
         ButtonKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonKembaliActionPerformed(evt);
             }
         });
+
+        jLabel3.setFont(new java.awt.Font("Book Antiqua", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Kelola");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Peminjaman.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -185,38 +198,50 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel1))
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ButtonHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ButtonKembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ButtonEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 20, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(22, 22, 22))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ButtonKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonKembalikan, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonTambahPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel4)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addComponent(ButtonTambah)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonTambahPinjam)
+                .addGap(18, 18, 18)
+                .addComponent(ButtonKembalikan)
                 .addGap(18, 18, 18)
                 .addComponent(ButtonHapus)
                 .addGap(18, 18, 18)
-                .addComponent(ButtonEdit)
-                .addGap(18, 18, 18)
                 .addComponent(ButtonKembali)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, -1));
 
-        jPanel2.setBackground(new java.awt.Color(194, 203, 239));
+        jPanel2.setBackground(new java.awt.Color(193, 230, 248));
 
-        jLabel2.setFont(new java.awt.Font("Book Antiqua", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
         jLabel2.setText("Tabel Data Peminjaman");
 
         FieldPencarian.setFont(new java.awt.Font("Book Antiqua", 2, 10)); // NOI18N
@@ -234,67 +259,73 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id Pinjam", "Kode Buku", "Id Anggota", "Tanggal Pinjam", "Tanggal kembali ", "Status"
+                "IdPinjam", "KodeBuku", "IdAnggota", "TanggalPinjam", "Status"
             }
         ));
         jScrollPane1.setViewportView(DataTabelPeminjaman);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 723, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonPencarian)))
-                .addGap(29, 29, 29))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonPencarian)
-                    .addComponent(FieldPencarian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
-        );
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/long-row-colorful-books-removebg-preview.png"))); // NOI18N
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, -1, 500));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/KelolaPeminjaman-removebg-preview.png"))); // NOI18N
+        jLabel7.setText("\\");
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/long-row-colorful-books-removebg-preview.png"))); // NOI18N
 
-    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonEditActionPerformed
+            javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+            jPanel2.setLayout(jPanel2Layout);
+            jPanel2Layout.setHorizontalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(243, 243, 243)
+                    .addComponent(jLabel2)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(0, 28, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(FieldPencarian, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(ButtonPencarian)))
+                    .addGap(29, 29, 29))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addComponent(jLabel5)
+                    .addGap(36, 36, 36)
+                    .addComponent(jLabel7)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(0, 0, Short.MAX_VALUE))
+            );
+            jPanel2Layout.setVerticalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(ButtonPencarian)
+                        .addComponent(FieldPencarian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
 
-    private void ButtonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembaliActionPerformed
-        // TODO add your handling code here:
-        new Dashboard().setVisible(true);
-        dispose();
+            getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 760, 500));
 
-    }//GEN-LAST:event_ButtonKembaliActionPerformed
-
-    private void ButtonPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPencarianActionPerformed
-        // TODO add your handling code here:
-        cariPinjam();
-    }//GEN-LAST:event_ButtonPencarianActionPerformed
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonHapusActionPerformed
         // TODO add your handling code here:
-        int row = DataTabelPeminjaman.getSelectedRow();
+          int row = DataTabelPeminjaman.getSelectedRow();
 
         if (row == -1) {
         JOptionPane.showMessageDialog(this,
@@ -317,16 +348,50 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this,
         "Berhasil dihapus");
-
-        loadData(); // refresh JTable
+        
+         loadData(); // refresh JTable
         }
     }//GEN-LAST:event_ButtonHapusActionPerformed
 
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+    private void ButtonKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembaliActionPerformed
+        // TODO add your handling code here:
+        new Dashboard().setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_ButtonKembaliActionPerformed
+
+    private void ButtonPencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonPencarianActionPerformed
+        // TODO add your handling code here:
+        cariPinjam();
+    }//GEN-LAST:event_ButtonPencarianActionPerformed
+
+    private void ButtonKembalikanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonKembalikanActionPerformed
+
+     int row = DataTabelPeminjaman.getSelectedRow();
+    if (row == -1) {
+    JOptionPane.showMessageDialog(this, "Pilih data terlebih dahulu");
+    return;
+}
+
+    String idPinjam = DataTabelPeminjaman.getValueAt(row, 0).toString();
+    String kodeBuku = DataTabelPeminjaman.getValueAt(row, 2).toString();
+
+     FileManager fm = new FileManager();
+     fm.kembalikanBuku(idPinjam, kodeBuku);
+
+    loadData(); // refresh JTable
+
+    JOptionPane.showMessageDialog(this,
+    "Buku berhasil dikembalikan"
+);
+
+    }//GEN-LAST:event_ButtonKembalikanActionPerformed
+
+    private void ButtonTambahPinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahPinjamActionPerformed
         // TODO add your handling code here:
         new PopUpTambahPinjam().setVisible(true);
         dispose();
-    }//GEN-LAST:event_ButtonTambahActionPerformed
+    }//GEN-LAST:event_ButtonTambahPinjamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,15 +399,20 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonEdit;
     private javax.swing.JButton ButtonHapus;
     private javax.swing.JButton ButtonKembali;
+    private javax.swing.JButton ButtonKembalikan;
     private javax.swing.JButton ButtonPencarian;
-    private javax.swing.JButton ButtonTambah;
+    private javax.swing.JButton ButtonTambahPinjam;
     private javax.swing.JTable DataTabelPeminjaman;
     private javax.swing.JTextField FieldPencarian;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

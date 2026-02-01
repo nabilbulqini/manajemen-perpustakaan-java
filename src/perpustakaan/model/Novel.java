@@ -8,22 +8,25 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
-public class Majalah extends ItemPerpustakaan {
+public class Novel extends ItemPerpustakaan{
     private String penulis;      
     private int tahunTerbit;
     
-    public Majalah(String kode, String judul, String penulis, int tahun) {
-    super(kode, judul, penulis, tahun);
-    
+    public Novel (String kode, String judul, String penulis, int tahun,
+                       StatusBuku status) {
+        super(kode, judul, penulis, tahun);
+
     this.penulis = penulis;
     this.tahunTerbit = tahunTerbit;
     }
 
     // getter & setter
+    @Override
     public String getPenulis() {
         return penulis;
     }
 
+    @Override
     public void setPenulis(String penulis) {
         this.penulis = penulis;
     }
@@ -39,6 +42,6 @@ public class Majalah extends ItemPerpustakaan {
     // POLYMORPHISM 
     @Override
     public String getJenisItem() {
-        return "Majalah";
+        return "Novel";
     }
 }

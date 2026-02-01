@@ -15,7 +15,7 @@ public abstract class ItemPerpustakaan {
     protected String penulis;
     protected int tahun;
 
-    public ItemPerpustakaan(String kode, String judul, String penulis, int tahun) {
+    public ItemPerpustakaan (String kode, String judul, String penulis, int tahun) {
         this.kode = kode;
         this.judul = judul;
         this.penulis = penulis;

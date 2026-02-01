@@ -6,7 +6,7 @@ package perpustakaan.util;
 
 import java.util.List;
 import perpustakaan.model.Anggota;
-import perpustakaan.model.Buku;
+import perpustakaan.model.BukuPelajaran;
 import perpustakaan.model.Peminjaman;
 
 /**
@@ -16,13 +16,13 @@ import perpustakaan.model.Peminjaman;
 public interface OperasiData {
    
     // ========== BUKU ==========
-    void simpan(Buku b);
+    void simpan(BukuPelajaran b);
 
-    List<Buku> bacaSemua();
+    List<BukuPelajaran> bacaSemua();
 
     void hapusBuku(String kodeBuku);
 
-    List<Buku> cariBuku(String keyword);
+    List<BukuPelajaran> cariBuku(String keyword);
     
     // ========== ANGGOTA ==========
     void simpanAnggota(Anggota a);

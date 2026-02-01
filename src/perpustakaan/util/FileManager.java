@@ -9,7 +9,7 @@ package perpustakaan.util;
  * @author LENOVO
  */
 
-   import perpustakaan.model.Buku;
+   import perpustakaan.model.BukuPelajaran;
    import perpustakaan.model.JenisBuku;
    import perpustakaan.model.StatusBuku;
    import perpustakaan.model.Anggota;
@@ -17,6 +17,7 @@ package perpustakaan.util;
    import perpustakaan.model.StatusPinjam;
    import java.io.*;
    import java.util.*;
+   
    
 
    public class FileManager implements OperasiData {
@@ -26,7 +27,7 @@ package perpustakaan.util;
 
     // Method Simpan Buku pada buku.txt
     @Override
-    public void simpan(Buku b) {
+    public void simpan(BukuPelajaran b) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE, true))) {
             bw.write(
                 b.getKode() + ";" +
@@ -42,19 +43,24 @@ package perpustakaan.util;
     }
 
     // Method Baca Buku Pada buku.txt
+    
     @Override
-    public List<Buku> bacaSemua() {
-        List<Buku> list = new ArrayList<>();
+    public List<BukuPelajaran> bacaSemua() {
+        List<BukuPelajaran> list = new ArrayList<>();
 
         File file = new File(FILE);
         if (!file.exists()) return list;
+        File f = new File("buku.txt");
+        System.out.println("PATH FILE: " + f.getAbsolutePath());
+        System.out.println("FILE ADA? " + f.exists());
+
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";");
 
-                Buku b = new Buku(
+                BukuPelajaran b = new BukuPelajaran(
                     data[0],
                     data[1],
                     data[2],
@@ -66,7 +72,9 @@ package perpustakaan.util;
                 list.add(b);
             }
         } catch (Exception e) {
-        }
+        System.out.println("GAGAL BACA BARIS: ");
+}
+
 
         return list;
     }
@@ -97,10 +105,10 @@ package perpustakaan.util;
     
     // Method cari buku pada buku.txt
     @Override
-    public List<Buku> cariBuku(String keyword) {
-    List<Buku> hasil = new ArrayList<>();
+    public List<BukuPelajaran> cariBuku(String keyword) {
+    List<BukuPelajaran> hasil = new ArrayList<>();
 
-    for (Buku b : bacaSemua()) {
+    for (BukuPelajaran b : bacaSemua()) {
         if (b.getJudul().toLowerCase().contains(keyword.toLowerCase())
             || b.getKode().toLowerCase().contains(keyword.toLowerCase())
             || b.getPenulis().toLowerCase().contains(keyword.toLowerCase())) {
@@ -112,13 +120,13 @@ package perpustakaan.util;
 }
     
     //Method Edit Buku pada buku.txt
-    public void updateBuku(Buku bukuBaru) {
-    List<Buku> list = bacaSemua();
+    public void updateBuku(BukuPelajaran bukuBaru) {
+    List<BukuPelajaran> list = bacaSemua();
 
     try (BufferedWriter bw =
          new BufferedWriter(new FileWriter("buku.txt"))) {
 
-        for (Buku b : list) {
+        for (BukuPelajaran b : list) {
             if (b.getKode().equals(bukuBaru.getKode())) {
                 b = bukuBaru;
             }
@@ -140,10 +148,10 @@ package perpustakaan.util;
     
     // Method Ubah status buku pada buku.txt  
     public void ubahStatusBuku(String kodeBuku, StatusBuku statusBaru) {
-        List<Buku> list = bacaSemua();
+        List<BukuPelajaran> list = bacaSemua();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("buku.txt"))) {
-            for (Buku b : list) {
+            for (BukuPelajaran b : list) {
 
                 if (b.getKode().equals(kodeBuku)) {
                     b.setStatus(statusBaru);
@@ -252,7 +260,6 @@ package perpustakaan.util;
             p.getKodeBuku() + ";" +
             p.getIdAnggota() + ";" +
             p.getTanggalPinjam() + ";" +
-            p.getTanggalKembali() + ";" +
             p.getStatus()
         );
         bw.newLine();
@@ -262,31 +269,27 @@ package perpustakaan.util;
     
     // Method baca semua peminjaman pada peminjaman.txt
     @Override
-    public List<Peminjaman> bacaSemuaPeminjaman() {
+   public List<Peminjaman> bacaSemuaPeminjaman() {
     List<Peminjaman> list = new ArrayList<>();
     File file = new File(FILE_PEMINJAMAN);
     if (!file.exists()) return list;
 
-    try (BufferedReader br = new BufferedReader(new FileReader(FILE_PEMINJAMAN))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
         String line;
         while ((line = br.readLine()) != null) {
-            String[] data = line.split(";");
 
-            Peminjaman p = new Peminjaman(
-                data[0], 
-                data[1], 
-                data[2], 
-                data[3], 
-                data[4], 
-                StatusPinjam.valueOf(data[5])
-            );
-            list.add(p);
+            Peminjaman p = Peminjaman.fromDataString(line);
+            if (p != null) {
+                list.add(p);
+            }
+
         }
     } catch (Exception e) {
-        e.printStackTrace();
     }
+
     return list;
 }
+
 
     // Method hapus Peminjaman pada peminjaman.txt
     @Override
@@ -314,22 +317,88 @@ package perpustakaan.util;
     
     // Method Cari peminjaman pada peminjaman.txt
     @Override
-    public List<Peminjaman> cariPeminjaman (String keyword) {
+  public List<Peminjaman> cariPeminjaman(String keyword) {
     List<Peminjaman> hasil = new ArrayList<>();
+    String key = keyword.toLowerCase();
 
     for (Peminjaman p : bacaSemuaPeminjaman()) {
-        if (p.getIdPinjam().toLowerCase().contains(keyword.toLowerCase())
-            || p.getKodeBuku().toLowerCase().contains(keyword.toLowerCase())
-            || p.getIdAnggota().toLowerCase().contains(keyword.toLowerCase())
-            || p.getTanggalPinjam().toLowerCase().contains(keyword.toLowerCase())
-            || p.getTanggalKembali().toLowerCase().contains(keyword.toLowerCase()))
-        {
 
+        boolean cocok =
+            p.getIdPinjam().toLowerCase().contains(key) ||
+            p.getKodeBuku().toLowerCase().contains(key) ||
+            p.getIdAnggota().toLowerCase().contains(key) ||
+            p.getTanggalPinjam().toString().contains(key) ;
+            
+        if (cocok) {
             hasil.add(p);
         }
     }
     return hasil;
 }
+    
+    private void simpanUlangPeminjaman(List<Peminjaman> list) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter("peminjaman.txt"))) {
+        for (Peminjaman p : list) {
+            bw.write(p.toDataString());
+            bw.newLine();
+        }
+    } catch (IOException e) {
+    }
+}
+
+    
+    public void kembalikanBuku(String idPinjam, String kodeBuku) {
+
+        List<Peminjaman> list = bacaSemuaPeminjaman(); // ← INI WAJIB
+
+    for (Peminjaman p : list) {
+        if (p.getIdPinjam().equals(idPinjam)) {
+            p.setStatus(StatusPinjam.DIKEMBALIKAN);
+            break;
+        }
+    }
+
+    simpanUlangPeminjaman(list);
+
+    // update status buku
+    ubahStatusBuku(kodeBuku, StatusBuku.TERSEDIA);
+}
+
+    public int getJumlahBuku() {
+    return bacaSemua().size();
+}
+
+public int getJumlahAnggota() {
+    return bacaSemuaAnggota().size();
+}
+
+public int getJumlahDipinjam() {
+    int total = 0;
+    for (Peminjaman p : bacaSemuaPeminjaman()) {
+        if (p.getStatus() == StatusPinjam.DIPINJAM) {
+            total++;
+        }
+    }
+    return total;
+}
+
+public int getJumlahDikembalikan() {
+    int total = 0;
+    for (Peminjaman p : bacaSemuaPeminjaman()) {
+        if (p.getStatus() == StatusPinjam.DIKEMBALIKAN) {
+            total++;
+        }
+    }
+    return total;
+}
+
+
+
+
+
+    public void simpan(Object b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

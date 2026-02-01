@@ -8,13 +8,14 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
-public class Buku extends ItemPerpustakaan {
+public class BukuPelajaran extends ItemPerpustakaan {
 
     private final JenisBuku jenis;
     private StatusBuku status;
 
-    public Buku(String kode, String judul, String penulis, int tahun,
+    public BukuPelajaran(String kode, String judul, String penulis, int tahun,
                 JenisBuku jenis, StatusBuku status) {
+ 
         super(kode, judul, penulis, tahun);
         this.jenis = jenis;
         this.status = status;
@@ -55,9 +56,9 @@ public class Buku extends ItemPerpustakaan {
     }
 
     // baca dari file
-    public static Buku fromDataString(String line) {
+    public static BukuPelajaran fromDataString(String line) {
         String[] data = line.split(";");
-        return new Buku(
+        return new BukuPelajaran (
             data[0],
             data[1],
             data[2],

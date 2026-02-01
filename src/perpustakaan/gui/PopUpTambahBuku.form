@@ -28,7 +28,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e6" green="9f" red="8e" type="rgb"/>
+          <Color blue="8f" green="2b" red="2b" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
@@ -63,6 +63,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Book Antiqua" size="24" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tambah Buku"/>
           </Properties>
         </Component>
@@ -71,7 +74,7 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ef" green="cb" red="c2" type="rgb"/>
+          <Color blue="f8" green="e6" red="c1" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>

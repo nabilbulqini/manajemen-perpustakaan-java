@@ -1,11 +1,45 @@
-N0001;Laskar Pelangi;Andrea Hirata;2005;NOVEL;TERSEDIA
-N0002;Laut Bercerita;Leila S. Chudori;2017;NOVEL;TERSEDIA
-N0003;Cantik Itu Luka;Eka Kurniawan;2002;NOVEL;TERSEDIA
-N0004;The Great Gatsby;F. Scott Fitzgerald;1925;NOVEL;TERSEDIA
-N0005;Norwegian Wood;Haruki Murakami;1987;NOVEL;TERSEDIA
-BP0001;Matematika Dasar;ST.Negoro & B.Harahap;2003;PELAJARAN;TERSEDIA
-BP0002;Fisika Dasar Jilid I;Halliday & Resnick;2010;PELAJARAN;TERSEDIA
-BP0003;Biologi Sel;Bruce Alberts;2014;PELAJARAN;TERSEDIA
-BP0004;Pengantar Ekonomi Makro;N.Gregory Mankiw;2018;PELAJARAN;TERSEDIA
-BP0005;Sejarah Indonesia;M.C Ricklefs;2008;PELAJARAN;TERSEDIA
-M0001;Tempo;Investigasi Politik;1971;MAJALAH;TERSEDIA
+BP001;Matematika Diskrit;Rinaldi Munir;2020;PELAJARAN;TERSEDIA
+BP002;Fisika Dasar I;Halliday Resnick;2018;PELAJARAN;DIPINJAM
+BP003;Biologi Sel;Albert Bruce;2019;PELAJARAN;TERSEDIA
+BP004;Kimia Organik;Fessenden;2015;PELAJARAN;TERSEDIA
+BP005;Ekonomi Makro;Sadono Sukirno;2021;PELAJARAN;DIPINJAM
+BP006;Sejarah Indonesia;Sartono Kartodirdjo;2017;PELAJARAN;TERSEDIA
+BP007;Algoritma Pemrograman;Sutedjo;2022;PELAJARAN;TERSEDIA
+BP008;Psikologi Pendidikan;John Santrock;2016;PELAJARAN;TERSEDIA
+BP009;Geografi Umum;Iwan Gatot;2019;PELAJARAN;TERSEDIA
+BP010;Sosiologi Kontemporer;George Ritzer;2020;PELAJARAN;DIPINJAM
+BP011;Dasar Akuntansi;Ikatan Akuntan Indonesia;2021;PELAJARAN;TERSEDIA
+BP012;Statistika Terapan;Sugiyono;2018;PELAJARAN;TERSEDIA
+BP013;Antropologi Budaya;Koentjaraningrat;2015;PELAJARAN;TERSEDIA
+BP014;Hukum Perdata;Subekti;2019;PELAJARAN;TERSEDIA
+BP015;Bahasa Inggris Teknis;Murphy;2022;PELAJARAN;TERSEDIA
+N001;Laskar Pelangi;Andrea Hirata;2005;NOVEL;TERSEDIA
+N002;Bumi Manusia;Pramoedya Ananta Toer;1980;NOVEL;TERSEDIA
+N003;Pulang;Leila S. Chudori;2012;NOVEL;TERSEDIA
+N004;Garis Waktu;Fiersa Besari;2016;NOVEL;TERSEDIA
+N005;Cantik Itu Luka;Eka Kurniawan;2002;NOVEL;TERSEDIA
+N006;Hujan;Tere Liye;2016;NOVEL;TERSEDIA
+N007;Perahu Kertas;Dee Lestari;2009;NOVEL;TERSEDIA
+N008;Ronggeng Dukuh Paruk;Ahmad Tohari;1982;NOVEL;TERSEDIA
+N009;Negeri 5 Menara;A. Fuadi;2009;NOVEL;TERSEDIA
+N010;Supernova;Dee Lestari;2001;NOVEL;TERSEDIA
+N011;Ayat Ayat Cinta;Habiburrahman El Shirazy;2004;NOVEL;TERSEDIA
+N012;Dilan 1990;Pidi Baiq;2014;NOVEL;TERSEDIA
+N013;Tenggelamnya Kapal Van der Wijck;Hamka;1938;NOVEL;TERSEDIA
+N014;Orang-Orang Biasa;Andrea Hirata;2019;NOVEL;TERSEDIA
+N015;Laut Bercerita;Leila S. Chudori;2017;NOVEL;TERSEDIA
+M001;Tempo Edisi Politik;Tim Redaksi Tempo;2023;MAJALAH;TERSEDIA
+M002;National Geographic;NG Society;2023;MAJALAH;TERSEDIA
+M003;Gatra Khusus;Redaksi Gatra;2022;MAJALAH;TERSEDIA
+M004;Forbes Indonesia;Forbes Media;2023;MAJALAH;TERSEDIA
+M005;Bobo Edisi Ultah;Kompas Gramedia;2023;MAJALAH;TERSEDIA
+M006;Trubus Pertanian;Redaksi Trubus;2022;MAJALAH;TERSEDIA
+M007;Info Komputer;Gramedia Majalah;2023;MAJALAH;TERSEDIA
+M008;Cosmopolitan;MRA Media;2022;MAJALAH;TERSEDIA
+M009;Autobild Indonesia;Redaksi Autobild;2021;MAJALAH;TERSEDIA
+M010;Chip Indonesia;Redaksi Chip;2020;MAJALAH;TERSEDIA
+M011;Nova Mingguan;Kompas Gramedia;2023;MAJALAH;TERSEDIA
+M012;Traveler Indonesia;Redaksi Traveler;2022;MAJALAH;TERSEDIA
+M013;Intisari;Kompas Gramedia;2023;MAJALAH;DIPINJAM
+M014;Marketeers;Hermawan Kartajaya;2023;MAJALAH;TERSEDIA
+M015;Gadget World;Redaksi GW;2023;MAJALAH;TERSEDIA
