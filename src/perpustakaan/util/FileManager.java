@@ -18,8 +18,6 @@ package perpustakaan.util;
    import java.io.*;
    import java.util.*;
    
-   
-
    public class FileManager implements OperasiData {
 
     // ========== BUKU ==========
@@ -43,7 +41,6 @@ package perpustakaan.util;
     }
 
     // Method Baca Buku Pada buku.txt
-    
     @Override
     public List<BukuPelajaran> bacaSemua() {
         List<BukuPelajaran> list = new ArrayList<>();
@@ -170,8 +167,7 @@ package perpustakaan.util;
         } catch (IOException e) {
         }
     }
-
-
+    
     // ========== ANGGOTA =========
     private final String FILE_ANGGOTA = "anggota.txt";
     
@@ -269,7 +265,7 @@ package perpustakaan.util;
     
     // Method baca semua peminjaman pada peminjaman.txt
     @Override
-   public List<Peminjaman> bacaSemuaPeminjaman() {
+    public List<Peminjaman> bacaSemuaPeminjaman() {
     List<Peminjaman> list = new ArrayList<>();
     File file = new File(FILE_PEMINJAMAN);
     if (!file.exists()) return list;
@@ -289,8 +285,7 @@ package perpustakaan.util;
 
     return list;
 }
-
-
+    
     // Method hapus Peminjaman pada peminjaman.txt
     @Override
     public void hapusPeminjaman (String idPinjam) {
@@ -317,7 +312,7 @@ package perpustakaan.util;
     
     // Method Cari peminjaman pada peminjaman.txt
     @Override
-  public List<Peminjaman> cariPeminjaman(String keyword) {
+    public List<Peminjaman> cariPeminjaman(String keyword) {
     List<Peminjaman> hasil = new ArrayList<>();
     String key = keyword.toLowerCase();
 
@@ -336,7 +331,9 @@ package perpustakaan.util;
     return hasil;
 }
     
-    private void simpanUlangPeminjaman(List<Peminjaman> list) {
+    // Method SimpanUlangPeminjaman peminjaman.txt
+    @Override
+    public void simpanUlangPeminjaman(List<Peminjaman> list) {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter("peminjaman.txt"))) {
         for (Peminjaman p : list) {
             bw.write(p.toDataString());
@@ -346,7 +343,8 @@ package perpustakaan.util;
     }
 }
 
-    
+    // Method kembalikanBuku pada buku.txt
+    @Override
     public void kembalikanBuku(String idPinjam, String kodeBuku) {
 
         List<Peminjaman> list = bacaSemuaPeminjaman(); // ← INI WAJIB
@@ -363,16 +361,20 @@ package perpustakaan.util;
     // update status buku
     ubahStatusBuku(kodeBuku, StatusBuku.TERSEDIA);
 }
-
+    
+    // Method menampilkan seluruh jumlah buku
+    @Override
     public int getJumlahBuku() {
     return bacaSemua().size();
 }
-
-public int getJumlahAnggota() {
+    // Method Menampilkan seluruh jumlah Anggota
+    @Override
+    public int getJumlahAnggota() {
     return bacaSemuaAnggota().size();
 }
-
-public int getJumlahDipinjam() {
+    // Method menampilkan seluruh jumlah Peminjaman
+    @Override
+    public int getJumlahDipinjam() {
     int total = 0;
     for (Peminjaman p : bacaSemuaPeminjaman()) {
         if (p.getStatus() == StatusPinjam.DIPINJAM) {
@@ -382,7 +384,9 @@ public int getJumlahDipinjam() {
     return total;
 }
 
-public int getJumlahDikembalikan() {
+    // Method menampilkan seluruh jumlah Pengembalian
+    @Override
+    public int getJumlahDikembalikan() {
     int total = 0;
     for (Peminjaman p : bacaSemuaPeminjaman()) {
         if (p.getStatus() == StatusPinjam.DIKEMBALIKAN) {
@@ -391,15 +395,9 @@ public int getJumlahDikembalikan() {
     }
     return total;
 }
+   }
 
 
 
 
-
-    public void simpan(Object b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
-    
-}
-

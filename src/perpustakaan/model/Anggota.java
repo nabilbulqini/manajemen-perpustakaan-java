@@ -9,13 +9,16 @@ package perpustakaan.model;
  * @author LENOVO
  */
 
+// class Independen
 public class Anggota {
 
+    //Atribut
     private String idAnggota;
     private String nama;
     private String alamat;
     private String noTelp;
 
+    // constructor
     public Anggota(String idAnggota, String nama, String alamat, String noTelp) {
         this.idAnggota = idAnggota;
         this.nama = nama;
@@ -23,6 +26,7 @@ public class Anggota {
         this.noTelp = noTelp;
     }
 
+    // getter dan setter
     public String getIdAnggota() {
         return idAnggota;
     }

@@ -10,14 +10,18 @@ import java.time.LocalDate;
  *
  * @author LENOVO
  */
+
+// class peminjaman
 public class Peminjaman {
 
+    // atribut
     private String idPinjam;
     private String idAnggota;
     private String kodeBuku;
     private String tanggalPinjam;
     private StatusPinjam status;
 
+    // constructor
     public Peminjaman(String idPinjam, String idAnggota, String kodeBuku,
                       String tanggalPinjam, StatusPinjam status) {
         this.idPinjam = idPinjam;
@@ -28,13 +32,23 @@ public class Peminjaman {
     }
 
     // getter
-    public String getIdPinjam() { return idPinjam; }
-    public String getIdAnggota() { return idAnggota; }
-    public String getKodeBuku() { return kodeBuku; }
-    public String getTanggalPinjam() { return tanggalPinjam; }
-    public StatusPinjam getStatus() { return status; }
+    public String getIdPinjam() { 
+        return idPinjam; 
+    }
+    public String getIdAnggota() { 
+        return idAnggota; 
+    }
+    public String getKodeBuku() { 
+        return kodeBuku; 
+    }
+    public String getTanggalPinjam() { 
+        return tanggalPinjam; 
+    }
+    public StatusPinjam getStatus() { 
+        return status; 
+    }
 
-    // setter penting
+    // setter 
     public void setStatus(StatusPinjam status) {
         this.status = status;
     }
@@ -45,8 +59,9 @@ public class Peminjaman {
                tanggalPinjam + ";" + status;
     }
 
-   public static Peminjaman fromDataString(String line) {
-    try {
+    // baca dari file
+     public static Peminjaman fromDataString(String line) {
+     try {
         String[] d = line.split(";");
 
         return new Peminjaman(

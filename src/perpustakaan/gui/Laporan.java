@@ -10,6 +10,8 @@ import perpustakaan.util.FileManager;
  *
  * @author LENOVO
  */
+
+// class jframe laporan
 public class Laporan extends javax.swing.JFrame {
 
     /**

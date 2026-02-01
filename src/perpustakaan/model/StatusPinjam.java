@@ -8,6 +8,8 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
+
+// class enum
 public enum StatusPinjam {
     DIPINJAM,
     DIKEMBALIKAN 

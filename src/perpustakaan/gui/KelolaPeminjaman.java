@@ -18,6 +18,8 @@ import perpustakaan.util.FileManager;
  *
  * @author LENOVO
  */
+
+// class jfrane kelolapeminjaman
 public class KelolaPeminjaman extends javax.swing.JFrame {
 
     private DefaultTableModel model;
@@ -37,8 +39,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
         loadData();
     }
     
-    
-    
+    // method membaca data pad jtable
     private void initTable() {
     model = new DefaultTableModel(
         new Object[]{"IdPinjam", "KodeBuku", "IdAnggota", "TanggalPinjam", "Status"}, 0
@@ -69,7 +70,8 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
     });
 }
     
-   void loadData() {
+    // method refreh
+    void loadData() {
     model.setRowCount(0);
 
     this.listPeminjaman = fm.bacaSemuaPeminjaman(); // ← PAKAI fm
@@ -84,7 +86,7 @@ public class KelolaPeminjaman extends javax.swing.JFrame {
     }
 }
 
-      
+    // method pencarian pinjam  
     private void cariPinjam() {
     String keyword = FieldPencarian.getText().trim().toLowerCase();
 

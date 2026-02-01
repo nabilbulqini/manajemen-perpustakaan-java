@@ -10,7 +10,10 @@ package perpustakaan.main;
  */
 import perpustakaan.gui.Dashboard;
 
+// Main App
 public class MainApp {
+    
+    // Jika dijalankan langsung dalam tampilan Dashboard
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
             new Dashboard().setVisible(true);

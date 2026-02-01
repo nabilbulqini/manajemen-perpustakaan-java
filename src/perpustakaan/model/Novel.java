@@ -8,14 +8,19 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
+
+// Subclass dari abstract class ItemPerpustakaan
 public class Novel extends ItemPerpustakaan{
+    
+    // Atribut khusus
     private String penulis;      
     private int tahunTerbit;
-    
+   
+    // constructor
     public Novel (String kode, String judul, String penulis, int tahun,
                        StatusBuku status) {
-        super(kode, judul, penulis, tahun);
-
+    // panggil atribut dari class ItemPerpustakaan    
+    super(kode, judul, penulis, tahun);
     this.penulis = penulis;
     this.tahunTerbit = tahunTerbit;
     }

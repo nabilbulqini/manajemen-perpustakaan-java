@@ -17,6 +17,8 @@ import perpustakaan.util.FileManager;
  *
  * @author LENOVO
  */
+
+// class Jframe KelolaAnggota
 public class KelolaAnggota extends javax.swing.JFrame {
 
     private DefaultTableModel model;
@@ -32,6 +34,7 @@ public class KelolaAnggota extends javax.swing.JFrame {
         loadData();
     }
     
+    // method menampilkan data pada jtable
     private void initTable() {
     model = new DefaultTableModel(
         new Object[]{"ID Anggota", "Nama", "Alamat", "No Telp"}, 0
@@ -39,6 +42,7 @@ public class KelolaAnggota extends javax.swing.JFrame {
     TabelDataAnggota.setModel(model);
   }
     
+    // method membuat tulisan pada field hilang
     private void setPlaceholder() {
     FieldPencarian.setText("pencarian...");
     FieldPencarian.setForeground(Color.GRAY);
@@ -66,6 +70,7 @@ public class KelolaAnggota extends javax.swing.JFrame {
     FileManager fileManager = new FileManager();
     List<Anggota> listAnggota;
 
+    // method refresh 
     final void loadData() {
     model.setRowCount(0);
     listAnggota = fileManager.bacaSemuaAnggota();
@@ -80,6 +85,7 @@ public class KelolaAnggota extends javax.swing.JFrame {
     }
 }
 
+    // method cari anggota
     private void cariAnggota() {
     String keyword = FieldPencarian.getText().trim().toLowerCase();
 
@@ -321,8 +327,8 @@ public class KelolaAnggota extends javax.swing.JFrame {
 
     private void ButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonHapusActionPerformed
         // TODO add your handling code here:
-         int row = TabelDataAnggota.getSelectedRow();
-    if (row == -1) {
+        int row = TabelDataAnggota.getSelectedRow();
+        if (row == -1) {
         JOptionPane.showMessageDialog(this, "Pilih data dulu!");
         return;
     }

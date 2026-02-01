@@ -9,12 +9,15 @@ package perpustakaan.model;
  * @author LENOVO
  */
 
+// abstract class
 public abstract class ItemPerpustakaan {
+    //atribut 
     protected String kode;
     protected String judul;
     protected String penulis;
     protected int tahun;
 
+    // constructor
     public ItemPerpustakaan (String kode, String judul, String penulis, int tahun) {
         this.kode = kode;
         this.judul = judul;
@@ -22,11 +25,21 @@ public abstract class ItemPerpustakaan {
         this.tahun = tahun;
     }
 
-    public String getKode() { return kode; }
-    public String getJudul() { return judul; }
-    public String getPenulis() { return penulis; }
-    public int getTahun() { return tahun; }
+    // getter
+    public String getKode() { 
+        return kode; 
+    }
+    public String getJudul() { 
+        return judul; 
+    }
+    public String getPenulis() { 
+        return penulis; 
+    }
+    public int getTahun() { 
+        return tahun; 
+    }
     
+    // setter
     public void setJudul(String judul) {
     this.judul = judul;
     }
@@ -39,5 +52,6 @@ public abstract class ItemPerpustakaan {
     this.tahun = tahun;
     }
 
+    // method abstract membedakan jenis item
     public abstract String getJenisItem();
 }

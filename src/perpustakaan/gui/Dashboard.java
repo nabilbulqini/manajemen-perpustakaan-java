@@ -8,18 +8,14 @@ package perpustakaan.gui;
  *
  * @author LENOVO
  */
-public class Dashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Dashboard
-     */
-    
-    // laporan dosen test commit
+// Class Jframe Dasboard
+public class Dashboard extends javax.swing.JFrame {
 
     public Dashboard() {
         initComponents();
         setLocationRelativeTo(null); // tengah layar
-        pack(); // <- PENTING 
+        pack(); 
     }
 
     /**

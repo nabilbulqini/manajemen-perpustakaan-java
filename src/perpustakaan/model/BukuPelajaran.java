@@ -8,19 +8,25 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
+
+// Subclass dari abstract class ItemPerpustakaan
 public class BukuPelajaran extends ItemPerpustakaan {
 
+    //Atribut khusus
     private final JenisBuku jenis;
     private StatusBuku status;
 
+    // constructor
     public BukuPelajaran(String kode, String judul, String penulis, int tahun,
                 JenisBuku jenis, StatusBuku status) {
  
+        // pangil atribut dari class itemprppustakaan
         super(kode, judul, penulis, tahun);
         this.jenis = jenis;
         this.status = status;
     }
 
+    //getter dan setter
     public JenisBuku getJenis() { 
         return jenis; 
     }
@@ -28,6 +34,7 @@ public class BukuPelajaran extends ItemPerpustakaan {
         return status; 
     }
     
+    // Polymorphism
     public void setStatus(StatusBuku status) { this.status = status; }
     @Override
     public void setJudul(String judul) {
@@ -47,10 +54,10 @@ public class BukuPelajaran extends ItemPerpustakaan {
 
     @Override
     public String getJenisItem() {
-        return "Buku";
+        return "PELAJARAN";
     }
 
-    // buat simpan ke file
+    // file handling
     public String toDataString() {
         return kode + ";" + judul + ";" + penulis + ";" + tahun + ";" + jenis + ";" + status;
     }
@@ -67,12 +74,7 @@ public class BukuPelajaran extends ItemPerpustakaan {
             StatusBuku.valueOf(data[5])
         );
     }
-
-    public void setJenisBuku(JenisBuku jenisBuku) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
-    public void setStatusBuku(StatusBuku statusBuku) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }
+

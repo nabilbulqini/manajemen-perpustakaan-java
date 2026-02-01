@@ -8,6 +8,8 @@ package perpustakaan.model;
  *
  * @author LENOVO
  */
+
+// Class enum
 public enum JenisBuku {
     NOVEL,
     PELAJARAN,

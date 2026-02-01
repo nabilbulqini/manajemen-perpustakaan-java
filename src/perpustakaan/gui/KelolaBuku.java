@@ -11,14 +11,11 @@ import javax.swing.table.DefaultTableModel;
 import perpustakaan.util.FileManager;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.DefaultComboBoxModel;
 import perpustakaan.model.BukuPelajaran;
 import perpustakaan.model.StatusBuku;
 
-/**
- *
- * @author LENOVO
- */
+
+// class jframe kelolabuku
 public class KelolaBuku extends javax.swing.JFrame {
 
     /**
@@ -42,6 +39,7 @@ public class KelolaBuku extends javax.swing.JFrame {
         loadData();
     }
     
+    // method membacata data pada Jtable
     private void initTable() {
     model = new DefaultTableModel(
         new Object[]{"Kode Buku", "Judul", "Penulis/Penyusun", "Tahun Terbit", "Jenis", "Status"}, 0
@@ -71,8 +69,7 @@ public class KelolaBuku extends javax.swing.JFrame {
     });
 }
     
-    
-
+    // method refresh
     void loadData() {
     model.setRowCount(0); // bersihin tabel
 
@@ -94,7 +91,9 @@ public class KelolaBuku extends javax.swing.JFrame {
    System.out.println("JUMLAH BUKU = " + list.size());
 
   }
-   private void cariBuku() {
+    
+    // Method cari buku
+    private void cariBuku() {
     String keyword = FieldPencarian.getText().trim().toLowerCase();
 
     // kalau placeholder atau kosong → tampilkan semua

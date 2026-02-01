@@ -19,6 +19,8 @@ import perpustakaan.util.FileManager;
  *
  * @author LENOVO
  */
+
+// class jframe popuptambahpinjam
 public class PopUpTambahPinjam extends javax.swing.JFrame {
 
     /**
@@ -35,7 +37,7 @@ public class PopUpTambahPinjam extends javax.swing.JFrame {
         ComboBoxStatusPinjam.setEnabled(false); // 🔒 dikunci
     }
     
-    
+    //method membaca data buku lalu kirim ke combo box
     private void loadComboBuku() {
     ComboBoxKodeBuku.removeAllItems();
 
@@ -50,6 +52,7 @@ public class PopUpTambahPinjam extends javax.swing.JFrame {
 }
     
 
+    // method membaca data anggota lalu kirim ke combo box
     private void loadComboAnggota() {
     ComboBoxIdAnggota.removeAllItems();
 
@@ -240,22 +243,22 @@ public class PopUpTambahPinjam extends javax.swing.JFrame {
         // TODO add your handling code here:
        try { 
            
-    Peminjaman p = new Peminjaman(
-    FieldIdPinjam.getText(),
-    ComboBoxIdAnggota.getSelectedItem().toString(),
-    ComboBoxKodeBuku.getSelectedItem().toString(),
-    FieldTanggalPinjam.getText(),
-    StatusPinjam.DIPINJAM
+       Peminjaman p = new Peminjaman(
+       FieldIdPinjam.getText(),
+       ComboBoxIdAnggota.getSelectedItem().toString(),
+       ComboBoxKodeBuku.getSelectedItem().toString(),
+       FieldTanggalPinjam.getText(),
+       StatusPinjam.DIPINJAM
 );
 
-    FileManager fm = new FileManager();
-    fm.simpanPeminjaman(p);
+       FileManager fm = new FileManager();
+       fm.simpanPeminjaman(p);
 
-     // ubah status buku
-    fm.ubahStatusBuku(
-    ComboBoxKodeBuku.getSelectedItem().toString(),
-    StatusBuku.DIPINJAM
-);
+       // ubah status buku
+       fm.ubahStatusBuku(
+       ComboBoxKodeBuku.getSelectedItem().toString(),
+       StatusBuku.DIPINJAM
+    );
  
     StatusPinjam status = StatusPinjam.DIPINJAM;
 

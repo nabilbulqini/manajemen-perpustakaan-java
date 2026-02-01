@@ -42,4 +42,14 @@ public interface OperasiData {
 
     List<Peminjaman> cariPeminjaman(String keyword);
     
+     void kembalikanBuku(String idPinjam, String kodeBuku);
+     
+     void simpanUlangPeminjaman(List<Peminjaman> list);
+     
+     // ======== Laporam ========
+     public int getJumlahBuku();
+     public int getJumlahAnggota();
+     public int getJumlahDikembalikan();
+     public int getJumlahDipinjam();
+    
 }

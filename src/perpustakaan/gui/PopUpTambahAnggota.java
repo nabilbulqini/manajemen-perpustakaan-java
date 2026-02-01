@@ -11,6 +11,8 @@ import perpustakaan.util.FileManager;
  *
  * @author LENOVO
  */
+
+// class jframe popuptambahanggota
 public class PopUpTambahAnggota extends javax.swing.JFrame {
 
     /**
